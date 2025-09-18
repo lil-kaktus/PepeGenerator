@@ -146,7 +146,7 @@ export default function MemeMain() {
 
                 <button className="meme-generator-mobile-close-menu-btn" onClick={(e) => setIsMobileParamsShown(!isMobileParamsShown)}>
                     <span>
-                        ▲
+                        {isMobileParamsShown ? "▼" : "▲"}
                     </span>
                 </button>
 
