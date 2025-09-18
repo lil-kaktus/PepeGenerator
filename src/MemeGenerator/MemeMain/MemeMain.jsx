@@ -10,7 +10,11 @@ const DEFAULT_BOTTOM_TEXT = "Take my money!"
 
 export default function MemeMain() {
 
-    const isMobile = WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)
+    const [isMobile, setIsMobile] = useState(WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))
+
+    useEffect(() => {
+        setIsMobile(WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))
+    })
 
     class MemeText {
         constructor(id, value = "", fontSize = "3", placeholderText, labelText = "Text " + String(id), x = "50", y = "50", width = 100) {
@@ -26,8 +30,8 @@ export default function MemeMain() {
     }
 
     const [memeTexts, setMemeTexts] = useState([
-        new MemeText(1, DEFAULT_TOP_TEXT, "3", null, "Text 1", 50, 10),
-        new MemeText(2, DEFAULT_BOTTOM_TEXT, "3", null, "Text 2", 50, 85)
+        new MemeText(1, DEFAULT_TOP_TEXT, isMobile ? "1.6" : "3", null, "Text 1", 50, 10),
+        new MemeText(2, DEFAULT_BOTTOM_TEXT, isMobile ? "1.6" : "3", null, "Text 2", 50, 85)
     ])
 
     const [isMobileParamsShown, setIsMobileParamsShown] = useState(false)
@@ -142,7 +146,7 @@ export default function MemeMain() {
                 <MemeFinalImage meme={meme} texts={memeTexts} setTexts={setMemeTexts} isMobile={isMobile} />
             </div>
 
-            <div className="meme-generator-inputs-wrapper" style={{minHeight : isMobileParamsShown ? "85%" : "auto", overflow: isMobileParamsShown ? "auto" : "hidden"}}>
+            <div className="meme-generator-inputs-wrapper" style={{ minHeight: isMobileParamsShown ? "85%" : "auto", overflow: isMobileParamsShown ? "auto" : "hidden" }}>
 
                 <button className="meme-generator-mobile-close-menu-btn" onClick={(e) => setIsMobileParamsShown(!isMobileParamsShown)}>
                     <span>
@@ -161,10 +165,12 @@ export default function MemeMain() {
 
                     <div className="meme-generator-bottom-buttons-container">
                         <button className="meme-generator-add-input" onClick={addMemeText}>+</button>
-
-                        <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button>
+                        {(isMobileParamsShown || !isMobile) && <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button>}
                     </div>
                 </div>
+
+
+                {(!isMobileParamsShown || isMobile) && <button className={`meme-generator-get-image${!isMobileParamsShown ? " meme-generator-get-image-btn-outside" : ""}`} onClick={(e) => getMeme()}>New meme image</button>}
 
             </div>
         </div>

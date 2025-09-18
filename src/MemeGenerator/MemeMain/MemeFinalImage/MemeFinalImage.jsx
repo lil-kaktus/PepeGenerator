@@ -7,10 +7,8 @@ export default function MemeFinalImage({ meme, texts, setTexts, isMobile}) {
 
     function handleDragStart(e, textId) {
         draggingId.current = textId
-        console.log(navigator.userAgent)
         
-        if (isMobile){ //checks if the user is on phone
-            console.log('on phone and clicked')
+        if (isMobile){
             document.addEventListener("touchmove", handleDragMove);
             document.addEventListener("touchend", handleDragEnd)
         }

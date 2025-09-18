@@ -9,7 +9,7 @@
 body {
   margin: 0;
   max-width: 100dvw;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Lato",system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .meme-generator {
@@ -108,6 +108,8 @@ body {
   align-items: center;
   justify-content: start;
   flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .meme-generator-inputs-and-buttons-container {
@@ -121,7 +123,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 20px;
+  padding: 0px 20px 20px;
   flex-wrap: wrap;
   box-sizing: border-box;
 }
@@ -240,7 +242,7 @@ input[type="range"]:focus {
 .meme-generator-bottom-buttons-container {
   position: sticky;
   box-sizing: border-box;
-  bottom: 0px;
+  bottom: -12px;
   background-color: var(--meme-light-grey);
   display: flex;
   align-items: center;
@@ -271,6 +273,9 @@ input[type="range"]:focus {
   border-radius: 20px;
   color: white;
   font-size: 1.3rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
 .meme-generator-mobile-close-menu-btn {
@@ -280,8 +285,8 @@ input[type="range"]:focus {
   background-color: var(--meme-dark-grey);
   padding: 5px 15px;
   border-radius: 10px;
-  margin: 10px 0px 40px;
-  width: 70%;
+  margin: 10px 0px;
+  width: 100%;
   border: none;
   display: none;
   cursor: pointer;
@@ -347,10 +352,18 @@ input[type="range"]:focus {
   font-weight: 900;
   margin: 0;
   color: white;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  text-shadow: 0px 0px 5px black;
   height: 100px;
   cursor: pointer;
+}
+
+.meme-generator-get-image-btn-outside{
+  width: 100% !important;
+  margin-bottom: 20px !important
+}
+
+.meme-generator-inputs-wrapper:has(.meme-generator-get-image-btn-outside){
+  padding: 10px 25px;
 }
 
 @media screen and (max-width: 1060px) {
@@ -381,7 +394,7 @@ input[type="range"]:focus {
 
   .meme-generator-wrapper-is-shown {
     display: block !important;
-    height: 80dvh;
+    height: 90dvh !important; /* height of the mobile toolbar whena active*/
   }
 
   .meme-generator-mobile-close-menu-btn {
