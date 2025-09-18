@@ -142,7 +142,7 @@ export default function MemeMain() {
                 <MemeFinalImage meme={meme} texts={memeTexts} setTexts={setMemeTexts} isMobile={isMobile} />
             </div>
 
-            <div className="meme-generator-inputs-wrapper" style={{ minHeight: isMobileParamsShown ? "85%" : "auto", overflow: isMobileParamsShown ? "auto" : "hidden" }}>
+            <div className="meme-generator-inputs-wrapper" style={{ minHeight: isMobileParamsShown ? "85%" : "auto"}}>
 
                 <button className="meme-generator-mobile-close-menu-btn" onClick={(e) => setIsMobileParamsShown(!isMobileParamsShown)}>
                     <span>
@@ -161,12 +161,12 @@ export default function MemeMain() {
 
                     <div className="meme-generator-bottom-buttons-container">
                         <button className="meme-generator-add-input" onClick={addMemeText}>+</button>
-                        {(isMobileParamsShown && !isMobile) && <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button>}
+                        {!isMobile || (isMobile && isMobileParamsShown) ? <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button> : null}
                     </div>
                 </div>
 
 
-                {(!isMobileParamsShown || isMobile) && <button className={`meme-generator-get-image${!isMobileParamsShown ? " meme-generator-get-image-btn-outside" : ""}`} onClick={(e) => getMeme()}>New meme image</button>}
+                {(isMobile && !isMobileParamsShown) ? <button className={`meme-generator-get-image${!isMobileParamsShown ? " meme-generator-get-image-btn-outside" : ""}`} onClick={(e) => getMeme()}>New meme image</button> : null}
 
             </div>
         </div>

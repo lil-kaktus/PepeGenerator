@@ -100,7 +100,6 @@ body {
   min-width: 30%;
   height: 100%;
   max-height: 100%;
-  overflow: auto;
   scrollbar-width: none;
   position: relative;
   z-index: 200;
@@ -110,6 +109,7 @@ body {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  overflow: hidden;
 }
 
 .meme-generator-inputs-and-buttons-container {
@@ -126,6 +126,10 @@ body {
   padding: 0px 20px 20px;
   flex-wrap: wrap;
   box-sizing: border-box;
+  overflow: auto;
+  scrollbar-width: none;
+  max-height: 60dvh;
+  margin-bottom: 50px;
 }
 
 .meme-generator-input-container {
@@ -399,5 +403,10 @@ input[type="range"]:focus {
 
   .meme-generator-mobile-close-menu-btn {
     display: block;
+  }
+
+  .meme-generator-inputs-parameters{
+    max-height: 50dvh;
+    padding-top: 15px;
   }
 }
