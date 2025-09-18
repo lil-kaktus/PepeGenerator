@@ -1,8 +1,7 @@
 import { useState } from "react"
 
-import pepeImgHover from "/src/assets/happy-pepe-sticker-no-bg.png"
-
-import pepeImgDefault from "/src/assets/sad-pepe-sticker-no-bg.png"
+import pepeImgHover from "../../assets/happy-pepe-sticker-no-bg.png"
+import pepeImgDefault from "../../assets/sad-pepe-sticker-no-bg.png"
 
 const DEFAULT_PEPE_IMG = pepeImgDefault
 const HOVER_PEPE_IMG = pepeImgHover

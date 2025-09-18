@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import MemeInputBox from './MemeInputBox/MemeInputBox'
 import MemeFinalImage from './MemeFinalImage/MemeFinalImage'
 
-import default_img from '/src/assets/shut-up-and-take-my-money-meme.jpg'
+import default_img from '../../assets/shut-up-and-take-my-money-meme.jpg'
 
 const DEFAULT_IMG_SRC = default_img
 const DEFAULT_TOP_TEXT = "Shut up and"
@@ -30,7 +30,7 @@ export default function MemeMain() {
         new MemeText(2, DEFAULT_BOTTOM_TEXT, "3", null, "Text 2", 50, 85)
     ])
 
-    const [isMobileParamsShown, setIsMobileParamsShown] = useState(true)
+    const [isMobileParamsShown, setIsMobileParamsShown] = useState(false)
 
     const currMemeTextId = useRef(memeTexts.length + 1)
 
