@@ -10,11 +10,7 @@ const DEFAULT_BOTTOM_TEXT = "Take my money!"
 
 export default function MemeMain() {
 
-    const [isMobile, setIsMobile] = useState(WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))
-
-    useEffect(() => {
-        setIsMobile(WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i))
-    })
+    const isMobile = WURFL.is_mobile || navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)
 
     class MemeText {
         constructor(id, value = "", fontSize = "3", placeholderText, labelText = "Text " + String(id), x = "50", y = "50", width = 100) {
@@ -165,7 +161,7 @@ export default function MemeMain() {
 
                     <div className="meme-generator-bottom-buttons-container">
                         <button className="meme-generator-add-input" onClick={addMemeText}>+</button>
-                        {(isMobileParamsShown || !isMobile) && <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button>}
+                        {(isMobileParamsShown && !isMobile) && <button className="meme-generator-get-image" onClick={(e) => getMeme()}>New meme image</button>}
                     </div>
                 </div>
 
