@@ -2,7 +2,9 @@ import { useRef, useState, useEffect } from 'react'
 import MemeInputBox from './MemeInputBox/MemeInputBox'
 import MemeFinalImage from './MemeFinalImage/MemeFinalImage'
 
-const DEFAULT_IMG_SRC = "/src/assets/shut-up-and-take-my-money-meme.jpg"
+import default_img from '/src/assets/shut-up-and-take-my-money-meme.jpg'
+
+const DEFAULT_IMG_SRC = default_img
 const DEFAULT_TOP_TEXT = "Shut up and"
 const DEFAULT_BOTTOM_TEXT = "Take my money!"
 

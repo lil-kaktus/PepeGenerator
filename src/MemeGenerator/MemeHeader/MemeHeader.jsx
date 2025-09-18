@@ -1,6 +1,11 @@
 import { useState } from "react"
-const DEFAULT_PEPE_IMG = "/src/assets/sad-pepe-sticker-no-bg.png"
-const HOVER_PEPE_IMG = "/src/assets/happy-pepe-sticker-no-bg.png"
+
+import pepeImgHover from "/src/assets/happy-pepe-sticker-no-bg.png"
+
+import pepeImgDefault from "/src/assets/sad-pepe-sticker-no-bg.png"
+
+const DEFAULT_PEPE_IMG = pepeImgDefault
+const HOVER_PEPE_IMG = pepeImgHover
 
 export default function MemeHeader() {
 
