@@ -92,7 +92,6 @@ export default function MemeMain() {
                     return newMemes
                 })
             }
-            console.log(memesQueue)
             isNewImageAvailable.current = true
         }
     }
