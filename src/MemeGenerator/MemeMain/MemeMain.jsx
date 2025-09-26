@@ -74,7 +74,6 @@ export default function MemeMain() {
 
     useEffect(() => {
         fetchMemes(false)
-        console.log('already there')
     }, [])
 
     function getMeme() {
@@ -84,7 +83,6 @@ export default function MemeMain() {
 
             if (!memesQueue || memesQueue.length <= 1) {
                 fetchMemes()
-                console.log('fetched inside getmeme function')
             }
             else {
                 setMemesQueue(prevMemes => {
@@ -138,10 +136,6 @@ export default function MemeMain() {
             shoudlScroll.current = false
         }
     }, [memeTexts])
-
-    function toggleMobileParams() {
-
-    }
 
     useEffect(() => {
         if (errorMsg) console.error(errorMsg)
