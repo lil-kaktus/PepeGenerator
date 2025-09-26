@@ -43,37 +43,48 @@ export default function MemeMain() {
     const isNewImageAvailable = useRef(true) //fetching available only if true
     const shoudlScroll = useRef(false)
 
-    async function getMeme() {
+    async function fetchMemes(isntFirstFetch = true) {
+        try {
+            const data = await fetch('https://api.imgflip.com/get_memes')
+            if (!data.ok) {
+                throw new Error('A problem occured with the meme API, please try again later.')
+            }
+
+            const parsedData = await data.json()
+
+            let shuffledArray = await parsedData.data.memes;
+
+            for (let i = shuffledArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1))
+                let temp = await shuffledArray[i]
+                shuffledArray[i] = await shuffledArray[j]
+                shuffledArray[j] = await temp
+            }
+
+            setMemesQueue(prevMemesQueue => [...shuffledArray])
+
+            if (isntFirstFetch) {
+                setMeme(shuffledArray[shuffledArray.length - 1])
+            }
+        }
+        catch (err) {
+            setErrorMsg(String(err))
+        }
+    }
+
+    useEffect(() => {
+        fetchMemes(false)
+        console.log('already there')
+    }, [])
+
+    function getMeme() {
         if (isNewImageAvailable.current) {
             isNewImageAvailable.current = false
             setErrorMsg("")
 
             if (!memesQueue || memesQueue.length <= 1) {
-                setMeme({})
-                try {
-                    const data = await fetch('https://api.imgflip.com/get_memes')
-                    if (!data.ok) {
-                        throw new Error('A problem occured with the meme API, please try again later.')
-                    }
-
-                    const parsedData = await data.json()
-
-                    let shuffledArray = await parsedData.data.memes;
-
-                    for (let i = shuffledArray.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1))
-                        let temp = await shuffledArray[i]
-                        shuffledArray[i] = await shuffledArray[j]
-                        shuffledArray[j] = await temp
-                    }
-
-                    setMemesQueue(prevMemesQueue => [...shuffledArray])
-
-                    setMeme(shuffledArray[shuffledArray.length - 1])
-                }
-                catch (err) {
-                    setErrorMsg(String(err))
-                }
+                fetchMemes()
+                console.log('fetched inside getmeme function')
             }
             else {
                 setMemesQueue(prevMemes => {
@@ -83,6 +94,7 @@ export default function MemeMain() {
                     return newMemes
                 })
             }
+            console.log(memesQueue)
             isNewImageAvailable.current = true
         }
     }
@@ -142,7 +154,7 @@ export default function MemeMain() {
                 <MemeFinalImage meme={meme} texts={memeTexts} setTexts={setMemeTexts} isMobile={isMobile} />
             </div>
 
-            <div className="meme-generator-inputs-wrapper" style={{ minHeight: isMobileParamsShown ? "85%" : "auto"}}>
+            <div className="meme-generator-inputs-wrapper" style={{ minHeight: isMobileParamsShown ? "85%" : "auto" }}>
 
                 <button className="meme-generator-mobile-close-menu-btn" onClick={(e) => setIsMobileParamsShown(!isMobileParamsShown)}>
                     <span>
