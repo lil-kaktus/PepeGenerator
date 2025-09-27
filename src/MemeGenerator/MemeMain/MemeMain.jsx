@@ -43,7 +43,7 @@ export default function MemeMain() {
     const isNewImageAvailable = useRef(true) //fetching available only if true
     const shoudlScroll = useRef(false)
 
-    async function fetchMemes(isntFirstFetch = true) {
+    async function fetchMemes() {
         try {
             const data = await fetch('https://api.imgflip.com/get_memes')
             if (!data.ok) {
@@ -52,20 +52,10 @@ export default function MemeMain() {
 
             const parsedData = await data.json()
 
-            let shuffledArray = await parsedData.data.memes;
+            const newMemesArray = await parsedData.data.memes;
 
-            for (let i = shuffledArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1))
-                let temp = await shuffledArray[i]
-                shuffledArray[i] = await shuffledArray[j]
-                shuffledArray[j] = await temp
-            }
+            setMemesQueue(prevMemesQueue => [...newMemesArray])
 
-            setMemesQueue(prevMemesQueue => [...shuffledArray])
-
-            if (isntFirstFetch) {
-                setMeme(shuffledArray[shuffledArray.length - 1])
-            }
         }
         catch (err) {
             setErrorMsg(String(err))
@@ -73,25 +63,17 @@ export default function MemeMain() {
     }
 
     useEffect(() => {
-        fetchMemes(false)
+        fetchMemes()
     }, [])
 
     function getMeme() {
         if (isNewImageAvailable.current) {
             isNewImageAvailable.current = false
-            setErrorMsg("")
+            if (errorMsg) setErrorMsg("")
 
-            if (!memesQueue || memesQueue.length <= 1) {
-                fetchMemes()
-            }
-            else {
-                setMemesQueue(prevMemes => {
-                    const newMemes = [...prevMemes];
-                    newMemes.pop()
-                    setMeme(newMemes[newMemes.length - 1])
-                    return newMemes
-                })
-            }
+            const rand = Math.floor(Math.random() * memesQueue.length)
+            setMeme(memesQueue[rand])
+
             isNewImageAvailable.current = true
         }
     }
